@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>С 8 Марта, Дашечка 🌸</title>
+
+<style>
+body{
+  margin:0;
+  font-family:'Segoe UI',sans-serif;
+  height:100vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  color:white;
+  overflow:hidden;
+  background:black;
+}
+
+.video-bg{
+  position:fixed;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+  z-index:-2;
+  overflow:hidden;
+}
+
+.video-bg video{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+}
+
+.overlay{
+  position:fixed;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+  background:rgba(0,0,0,0.45);
+  z-index:-1;
+}
+
+.card{
+  background:rgba(255,255,255,0.15);
+  backdrop-filter:blur(10px);
+  padding:40px;
+  border-radius:25px;
+  box-shadow:0 20px 40px rgba(0,0,0,0.4);
+  max-width:600px;
+  animation:fadeIn 2s ease;
+}
+
+h1{
+  font-size:42px;
+  margin-bottom:10px;
+}
+
+p{
+  font-size:20px;
+  line-height:1.6;
+}
+
+button{
+  margin-top:25px;
+  padding:12px 25px;
+  font-size:18px;
+  border:none;
+  border-radius:20px;
+  background:white;
+  color:#ff4f8b;
+  cursor:pointer;
+  transition:0.3s;
+}
+
+button:hover{transform:scale(1.1);}
+
+.hidden{display:none;margin-top:20px;font-size:22px;}
+
+.flower{
+  position:fixed;
+  top:-20px;
+  font-size:24px;
+  animation:fall linear forwards;
+}
+
+.heart{
+  position:fixed;
+  font-size:20px;
+  pointer-events:none;
+  animation:heartFloat 1s forwards;
+}
+
+.open-card{
+  position:fixed;
+  top:50%;
+  left:50%;
+  transform:translate(-50%, -50%);
+  background:rgba(255,255,255,0.95);
+  color:#ff4f8b;
+  padding:40px;
+  border-radius:25px;
+  max-width:600px;
+  box-shadow:0 20px 40px rgba(0,0,0,0.3);
+  z-index:10;
+  display:none;
+  animation:fadeIn 0.8s ease;
+}
+
+@keyframes fall{
+  to{transform:translateY(110vh);}
+}
+
+@keyframes heartFloat{
+  0%{transform:scale(1);opacity:1}
+  100%{transform:translateY(-80px) scale(1.5);opacity:0}
+}
+
+@keyframes fadeIn{
+  from{opacity:0; transform:translateY(20px);}
+  to{opacity:1; transform:translateY(0);}
+}
+</style>
+</head>
+
+<body>
+
+<div class="video-bg">
+  <video id="bgVideo" autoplay loop muted>
+    <source src="wiege_alien_stage.mp4" type="video/mp4">
+  </video>
+</div>
+
+<div class="overlay"></div>
+
+<div class="card card-inner">
+  <h1>С 8 Марта, Дашечка 🌸</h1>
+  <p>Ты самая прекрасная, милая и удивительная девочка. Пусть твоя улыбка всегда освещает этот мир, а алнст на фоне подарит её (wiege не просто так).</p>
+  <button onclick="activateVideoAndCard()">Нажми</button>
+</div>
+
+<div id="openCard" class="open-card">
+  <button onclick="closeCard()" style="position:absolute;top:10px;right:15px;font-size:20px;background:none;border:none;color:#ff4f8b;cursor:pointer;">×</button>
+  <p>Спасибо тебе за 2 месяца, проведённые вместе. За это время мне оказалось трудно делать что-либо или смотреть что-то без твоего присутствия, твоих комментариев или твоего молчания, даже с ним мне было спокойнее. Рядом с тобой я чувствую себя дома, давай и дальше будем идти вместе, я люблю тебя, Дашечка.</p>
+</div>
+
+<script>
+function activateVideoAndCard(){
+  // включаем звук и воспроизводим видео
+  const video = document.getElementById('bgVideo');
+  video.muted = false;
+  video.play();
+
+  // открываем открытку
+  const card = document.getElementById('openCard');
+  card.style.display='block';
+  card.style.animation='fadeIn 0.8s ease';
+}
+
+function closeCard(){
+  const card = document.getElementById('openCard');
+  card.style.display='none';
+}
+
+/* Падающие цветы */
+function createFlower(){
+  const flower=document.createElement('div');
+  flower.className='flower';
+  flower.innerHTML='🌸';
+  flower.style.left=Math.random()*100+'vw';
+  flower.style.animationDuration=(3+Math.random()*5)+'s';
+  document.body.appendChild(flower);
+  setTimeout(()=>{flower.remove();},8000);
+}
+setInterval(createFlower,500);
+
+/* Сердечки при клике */
+document.addEventListener('click',function(e){
+  const heart=document.createElement('div');
+  heart.className='heart';
+  heart.innerHTML='💖';
+  heart.style.left=e.clientX+'px';
+  heart.style.top=e.clientY+'px';
+  document.body.appendChild(heart);
+  setTimeout(()=>{heart.remove();},1000);
+});
+</script>
+
+</body>
+</html>
+
